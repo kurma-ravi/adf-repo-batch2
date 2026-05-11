@@ -1,0 +1,194 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name",
+			"defaultValue": "b2datafactory20april"
+		},
+		"LS_AWS_S3_secretAccessKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'secretAccessKey' of 'LS_AWS_S3'"
+		},
+		"LS_AzureSqlDatabase_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'LS_AzureSqlDatabase'"
+		},
+		"LS_DataLake_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'LS_DataLake'"
+		},
+		"LS_MySQL_DL_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'LS_MySQL_DL'"
+		},
+		"LS_AWS_S3_properties_typeProperties_accessKeyId": {
+			"type": "string",
+			"defaultValue": "AKIA36I7PG4KONON2ESN"
+		},
+		"LS_AzureSqlDatabase_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "sqldatabaseservermarch.database.windows.net"
+		},
+		"LS_AzureSqlDatabase_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "azureSQLDB-CI"
+		},
+		"LS_AzureSqlDatabase_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "adeazuresql"
+		},
+		"LS_DataLake_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://b2datalake20april.dfs.core.windows.net/"
+		},
+		"LS_Github_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://raw.githubusercontent.com/"
+		},
+		"LS_MySQL_DL_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "127.0.0.1"
+		},
+		"LS_MySQL_DL_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "adesql"
+		},
+		"LS_MySQL_DL_properties_typeProperties_username": {
+			"type": "string",
+			"defaultValue": "root"
+		},
+		"3_Trigger_Event_SalesFilesPipeline_properties_typeProperties_scope": {
+			"type": "string",
+			"defaultValue": "/subscriptions/d763a116-bd1a-4303-a905-59c299f9af68/resourceGroups/B2-RG-CI/providers/Microsoft.Storage/storageAccounts/b2datalake20april"
+		},
+		"4_ProdReady_Event_Trigger_properties_typeProperties_scope": {
+			"type": "string",
+			"defaultValue": "/subscriptions/d763a116-bd1a-4303-a905-59c299f9af68/resourceGroups/B2-RG-CI/providers/Microsoft.Storage/storageAccounts/b2datalake20april"
+		},
+		"IR-SelfHosted-Mysql-Cloud-Reused_properties_typeProperties_linkedInfo_resourceId": {
+			"type": "string",
+			"defaultValue": "/subscriptions/d763a116-bd1a-4303-a905-59c299f9af68/resourcegroups/ResourceGroup-CI/providers/Microsoft.DataFactory/factories/datafactory12mar/integrationruntimes/IntegrationRuntime-mySQL"
+		},
+		"containerUri": {
+			"type": "string",
+			"metadata": "URI to storage account containing linked ARM templates"
+		},
+		"containerSasToken": {
+			"type": "string",
+			"metadata": "Sas token to storage account containing linked ARM templates"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "b2datafactory20april_ArmTemplate_0",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2024-03-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_0.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					},
+					"LS_AWS_S3_secretAccessKey": {
+						"value": "[parameters('LS_AWS_S3_secretAccessKey')]"
+					},
+					"LS_AzureSqlDatabase_password": {
+						"value": "[parameters('LS_AzureSqlDatabase_password')]"
+					},
+					"LS_DataLake_accountKey": {
+						"value": "[parameters('LS_DataLake_accountKey')]"
+					},
+					"LS_AWS_S3_properties_typeProperties_accessKeyId": {
+						"value": "[parameters('LS_AWS_S3_properties_typeProperties_accessKeyId')]"
+					},
+					"LS_AzureSqlDatabase_properties_typeProperties_server": {
+						"value": "[parameters('LS_AzureSqlDatabase_properties_typeProperties_server')]"
+					},
+					"LS_AzureSqlDatabase_properties_typeProperties_database": {
+						"value": "[parameters('LS_AzureSqlDatabase_properties_typeProperties_database')]"
+					},
+					"LS_AzureSqlDatabase_properties_typeProperties_userName": {
+						"value": "[parameters('LS_AzureSqlDatabase_properties_typeProperties_userName')]"
+					},
+					"LS_DataLake_properties_typeProperties_url": {
+						"value": "[parameters('LS_DataLake_properties_typeProperties_url')]"
+					},
+					"LS_Github_properties_typeProperties_url": {
+						"value": "[parameters('LS_Github_properties_typeProperties_url')]"
+					},
+					"IR-SelfHosted-Mysql-Cloud-Reused_properties_typeProperties_linkedInfo_resourceId": {
+						"value": "[parameters('IR-SelfHosted-Mysql-Cloud-Reused_properties_typeProperties_linkedInfo_resourceId')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "b2datafactory20april_ArmTemplate_1",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2024-03-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_1.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					},
+					"LS_MySQL_DL_password": {
+						"value": "[parameters('LS_MySQL_DL_password')]"
+					},
+					"LS_MySQL_DL_properties_typeProperties_server": {
+						"value": "[parameters('LS_MySQL_DL_properties_typeProperties_server')]"
+					},
+					"LS_MySQL_DL_properties_typeProperties_database": {
+						"value": "[parameters('LS_MySQL_DL_properties_typeProperties_database')]"
+					},
+					"LS_MySQL_DL_properties_typeProperties_username": {
+						"value": "[parameters('LS_MySQL_DL_properties_typeProperties_username')]"
+					}
+				}
+			},
+			"dependsOn": [
+				"[resourceId('Microsoft.Resources/deployments', 'b2datafactory20april_ArmTemplate_0')]"
+			]
+		},
+		{
+			"name": "b2datafactory20april_ArmTemplate_2",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2024-03-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_2.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					},
+					"3_Trigger_Event_SalesFilesPipeline_properties_typeProperties_scope": {
+						"value": "[parameters('3_Trigger_Event_SalesFilesPipeline_properties_typeProperties_scope')]"
+					},
+					"4_ProdReady_Event_Trigger_properties_typeProperties_scope": {
+						"value": "[parameters('4_ProdReady_Event_Trigger_properties_typeProperties_scope')]"
+					}
+				}
+			},
+			"dependsOn": [
+				"[resourceId('Microsoft.Resources/deployments', 'b2datafactory20april_ArmTemplate_1')]"
+			]
+		}
+	]
+}
