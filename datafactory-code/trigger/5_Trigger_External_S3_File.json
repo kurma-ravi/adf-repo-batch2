@@ -1,0 +1,25 @@
+{
+	"name": "5_Trigger_External_S3_File",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Stopped",
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "5_ADE_External_S3_Pipeline",
+					"type": "PipelineReference"
+				}
+			}
+		],
+		"type": "ScheduleTrigger",
+		"typeProperties": {
+			"recurrence": {
+				"frequency": "Minute",
+				"interval": 30,
+				"startTime": "2026-04-30T08:30:00",
+				"endTime": "2026-04-30T10:00:00",
+				"timeZone": "India Standard Time"
+			}
+		}
+	}
+}

@@ -1,0 +1,54 @@
+{
+	"name": "5_DataTransformation",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "dest_txt_source_prop_5",
+						"type": "DatasetReference"
+					},
+					"name": "datatransform5"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "sink_prop_5",
+						"type": "DatasetReference"
+					},
+					"name": "sink5"
+				}
+			],
+			"transformations": [
+				{
+					"name": "pivot1"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          CustID as short,",
+				"          Product as string,",
+				"          Sales as integer",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> datatransform5",
+				"datatransform5 pivot(groupBy(CustID),",
+				"     pivotBy(Product),",
+				"     Total_Sales = sum(toInteger(Sales)),",
+				"     columnNaming: '$N$V',",
+				"     lateral: true) ~> pivot1",
+				"pivot1 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     umask: 0022,",
+				"     preCommands: [],",
+				"     postCommands: [],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     partitionBy('hash', 1)) ~> sink5"
+			]
+		}
+	}
+}

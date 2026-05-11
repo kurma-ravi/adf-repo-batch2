@@ -1,0 +1,16 @@
+{
+	"name": "6_Onpremise_MySqlTables",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_MySQL_DL",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "MySqlTable",
+		"schema": [],
+		"typeProperties": {
+			"tableName": "`dim_product`"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

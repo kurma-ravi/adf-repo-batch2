@@ -1,0 +1,78 @@
+{
+	"name": "3_TransformData",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "3_source_salesfile_prop",
+						"type": "DatasetReference"
+					},
+					"name": "SourceSalesFiles3"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "3_target_business_prop",
+						"type": "DatasetReference"
+					},
+					"name": "sinkReporting3"
+				}
+			],
+			"transformations": [
+				{
+					"name": "wherefilter3"
+				},
+				{
+					"name": "selectCols3"
+				},
+				{
+					"name": "countrysplit"
+				},
+				{
+					"name": "aggregation3"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          InvoiceNo as integer,",
+				"          StockCode as integer,",
+				"          Description as string,",
+				"          Quantity as integer,",
+				"          InvoiceDate as date,",
+				"          UnitPrice as double,",
+				"          CustomerID as integer,",
+				"          Country as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> SourceSalesFiles3",
+				"SourceSalesFiles3 filter(InvoiceNo!=537669) ~> wherefilter3",
+				"wherefilter3 select(mapColumn(",
+				"          InvoiceNo,",
+				"          Quantity,",
+				"          InvoiceDate,",
+				"          UnitPrice,",
+				"          CustomerID,",
+				"          Country",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> selectCols3",
+				"selectCols3 split(Country=='United Kingdom',",
+				"     Country=='Germany',",
+				"     disjoint: false) ~> countrysplit@(UK, Germany, Others)",
+				"countrysplit@UK aggregate(groupBy(InvoiceNo),",
+				"     UnitPrice = sum(UnitPrice)) ~> aggregation3",
+				"aggregation3 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     umask: 0022,",
+				"     preCommands: [],",
+				"     postCommands: [],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> sinkReporting3"
+			]
+		}
+	}
+}

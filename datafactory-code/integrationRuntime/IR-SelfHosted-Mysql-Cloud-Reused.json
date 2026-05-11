@@ -1,0 +1,12 @@
+{
+	"name": "IR-SelfHosted-Mysql-Cloud-Reused",
+	"properties": {
+		"type": "SelfHosted",
+		"typeProperties": {
+			"linkedInfo": {
+				"resourceId": "/subscriptions/d763a116-bd1a-4303-a905-59c299f9af68/resourcegroups/ResourceGroup-CI/providers/Microsoft.DataFactory/factories/datafactory12mar/integrationruntimes/IntegrationRuntime-mySQL",
+				"authorizationType": "Rbac"
+			}
+		}
+	}
+}

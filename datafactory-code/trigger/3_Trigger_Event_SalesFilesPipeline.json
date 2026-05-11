@@ -1,0 +1,24 @@
+{
+	"name": "3_Trigger_Event_SalesFilesPipeline",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Stopped",
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "3_ADE_Pipeline_OnlySalesFiles",
+					"type": "PipelineReference"
+				}
+			}
+		],
+		"type": "BlobEventsTrigger",
+		"typeProperties": {
+			"blobPathBeginsWith": "/source/blobs/csv-files/products.csv",
+			"ignoreEmptyBlobs": true,
+			"scope": "/subscriptions/d763a116-bd1a-4303-a905-59c299f9af68/resourceGroups/B2-RG-CI/providers/Microsoft.Storage/storageAccounts/b2datalake20april",
+			"events": [
+				"Microsoft.Storage.BlobCreated"
+			]
+		}
+	}
+}
